@@ -86,11 +86,13 @@ class LoginScreen extends StatelessWidget {
                   Radius.circular(5),
                 ),
               ),
+
+              // ♦ The "Rectangular Area" of a "Material"
+              //    → that "Responds" to "Touch:"
               child: InkWell(
-                onTap: () => authController.loginUser(
-                  _emailController.text,
-                  _passwordController.text,
-                ),
+                onTap: () {
+                  debugPrint('navigating user');
+                },
                 child: const Center(
                   child: Text(
                     'Login',
@@ -118,12 +120,13 @@ class LoginScreen extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
+
+                // ♦ The "Rectangular Area" of a "Material"
+                //    → that "Responds" to "Touch:"
                 InkWell(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => SignupScreen(),
-                    ),
-                  ),
+                  onTap: () {
+                    debugPrint('navigating user');
+                  },
                   child: Text(
                     'Register',
                     style: TextStyle(fontSize: 20, color: buttonColor),
