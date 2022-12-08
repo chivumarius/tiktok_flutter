@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_flutter/constants.dart';
+import 'package:tiktok_flutter/views/screens/auth/login_screen.dart';
 import 'package:tiktok_flutter/views/widgets/text_input_field.dart';
 
 // ♦♦ The "Stateless Widget":
-class LoginScreen extends StatelessWidget {
+class SignupScreen extends StatelessWidget {
   // ♦ Constructor:
-  LoginScreen({Key? key}) : super(key: key);
+  SignupScreen({Key? key}) : super(key: key);
 
   // ♦ Properties:
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
-  // ♦ The "nuild()" Method:
+  // ♦ The "build()" MethodL
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +34,7 @@ class LoginScreen extends StatelessWidget {
 
             // ♦ Screen Title - "Text Field":
             const Text(
-              'Login',
+              'Register',
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w700,
@@ -42,6 +44,55 @@ class LoginScreen extends StatelessWidget {
             // ♦ Spacing Between Components:
             const SizedBox(
               height: 25,
+            ),
+
+            // ♦ "Positioning" the "Children"
+            //    → Relative to the "Edges" of "Its Box":
+            Stack(
+              children: [
+                // ♦ Avatar - "Area":
+                const CircleAvatar(
+                  radius: 64,
+                  backgroundImage: NetworkImage(
+                      'https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png'),
+                  backgroundColor: Colors.black,
+                ),
+
+                // ♦ Add a Photo - "Icon Button":
+                Positioned(
+                  bottom: -10,
+                  left: 80,
+                  child: IconButton(
+                    onPressed: () {
+                      debugPrint('Pick an Image');
+                    },
+                    icon: const Icon(
+                      Icons.add_a_photo,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            // ♦ Spacing Between Components:
+            const SizedBox(
+              height: 15,
+            ),
+
+            // ♦ Username - "Text Input Field":
+            Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextInputField(
+                controller: _usernameController,
+                labelText: 'Username',
+                icon: Icons.person,
+              ),
+            ),
+
+            // ♦ Spacing Between Components:
+            const SizedBox(
+              height: 15,
             ),
 
             // ♦ Email - "Text Input Field":
@@ -57,7 +108,7 @@ class LoginScreen extends StatelessWidget {
 
             // ♦ Spacing Between Components:
             const SizedBox(
-              height: 25,
+              height: 15,
             ),
 
             // ♦ Password - "Text Input Field":
@@ -77,7 +128,7 @@ class LoginScreen extends StatelessWidget {
               height: 30,
             ),
 
-            // ♦ Login - "Button"
+            // ♦ Register - "Button"
             Container(
               width: MediaQuery.of(context).size.width - 40,
               height: 50,
@@ -91,12 +142,12 @@ class LoginScreen extends StatelessWidget {
               // ♦ The "Rectangular Area" of a "Material"
               //    → that "Responds" to "Touch:"
               child: InkWell(
-                onTap: () {
-                  debugPrint('navigating user');
+                onTap: () => {
+                  debugPrint('User Navigation to Registration!'),
                 },
                 child: const Center(
                   child: Text(
-                    'Login',
+                    'Register',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -111,12 +162,12 @@ class LoginScreen extends StatelessWidget {
               height: 15,
             ),
 
-            // ♦ Register - "Text Area"
+            // ♦ Login - "Text Area"
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Don\'t have an account? ',
+                  'Already have an account? ',
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -125,11 +176,13 @@ class LoginScreen extends StatelessWidget {
                 // ♦ The "Rectangular Area" of a "Material"
                 //    → that "Responds" to "Touch:"
                 InkWell(
-                  onTap: () {
-                    debugPrint('User Navigation to Login!');
-                  },
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => LoginScreen(),
+                    ),
+                  ),
                   child: Text(
-                    'Register',
+                    'Login',
                     style: TextStyle(fontSize: 20, color: buttonColor),
                   ),
                 ),
