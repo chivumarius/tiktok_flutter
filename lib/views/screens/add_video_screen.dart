@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_flutter/views/screens/confirm_screen.dart';
@@ -17,7 +19,10 @@ class AddVideoScreen extends StatelessWidget {
       // ♦ "Redirection" to the "Confirmation Screen":
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const ConfirmScreen(),
+          builder: (context) => ConfirmScreen(
+            videoFile: File(video.path),
+            videoPath: video.path,
+          ),
         ),
       );
     }
@@ -86,7 +91,7 @@ class AddVideoScreen extends StatelessWidget {
     );
   }
 
-  // The "cuild()" Method:
+  // The "build()" Method:
   @override
   Widget build(BuildContext context) {
     return Scaffold(
