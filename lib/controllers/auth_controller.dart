@@ -6,19 +6,52 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_flutter/constants.dart';
 import 'package:tiktok_flutter/models/user.dart' as model;
+import 'package:tiktok_flutter/views/screens/auth/login_screen.dart';
+import 'package:tiktok_flutter/views/screens/home_screen.dart';
 
 // ♦♦ The "AuthController" Class
 //     → will use the "Get" Package
 class AuthController extends GetxController {
   // ♦ Variables:
   static AuthController instance = Get.find();
+  late Rx<User?> _user;
   late Rx<File?> _pickedImage;
 
   // ♦ Getter
   //   → for Accessing the "Private propery":
   File? get profilePhoto => _pickedImage.value;
 
-  // ♦♦ UThe "oickImage" Method:
+  // ♦♦ The "onReady()" Method:
+  @override
+  void onReady() {
+    super.onReady();
+
+    // ♦ Checking if is the Same User:
+    _user = Rx<User?>(firebaseAuth.currentUser);
+
+    // ♦ Listening for "Changes" in the "Authentication State:"
+    _user.bindStream(firebaseAuth.authStateChanges());
+
+    // ♦ Every time when there is a Change in "_user"
+    //   → we "Call" the Method "_setInitialScreen()"
+    ever(_user, _setInitialScreen);
+  }
+
+  // ♦♦ The "_setInitialScreen()" Method
+  //     → for "Redirecting" the "User"
+  //     → to the "HomeScreen" if he is "Authenticated":
+  _setInitialScreen(User? user) {
+    // ♦ Checking the Condition:
+    if (user == null) {
+      // ♦ Replacing everything with the "LoginScreen()":
+      Get.offAll(() => LoginScreen());
+    } else {
+      // ♦ Replacing everything with the "HomeScreen()":
+      Get.offAll(() => const HomeScreen());
+    }
+  }
+
+  // ♦♦ The "pickImage()" Method:
   void pickImage() async {
     final pickedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
