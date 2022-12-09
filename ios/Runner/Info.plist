@@ -15,7 +15,7 @@
 	<key>CFBundleName</key>
 	<string>tiktok_flutter</string>
 	<key>CFBundlePackageType</key>
-	<string>APPL</string>
+	<string>APPLE</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
@@ -47,5 +47,15 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>Photo Library Needed</string>
+
+	<key>NSCameraUsageDescription</key>
+    <string>Camera Usage</string>
+
+	<key>NSMicrophoneUsageDescription</key>
+    <string>Microphone Usage</string>
+
 </dict>
 </plist>

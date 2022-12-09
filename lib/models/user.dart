@@ -1,17 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User {
+  // ♦♦ Properties:
   String name;
   String profilePhoto;
   String email;
   String uid;
 
+  // ♦♦ Constructor:
   User(
       {required this.name,
       required this.email,
       required this.uid,
-      required this.profilePhoto});
+      required this.profilePhoto,});
 
+  // ♦♦ The "toJson()" Method
+  //     → for "Converting Data" to an "Object" ("Map"):
   Map<String, dynamic> toJson() => {
         "name": name,
         "profilePhoto": profilePhoto,
@@ -19,8 +23,14 @@ class User {
         "uid": uid,
       };
 
+  // ♦♦ The "fromSnap()" Method
+  //     → which will Take a "DocumentSnapshot"
+  //     → that it will "Convert" into a "User Model":
   static User fromSnap(DocumentSnapshot snap) {
+    // ♦ Getting "data()" and Marked "as Map<>":
     var snapshot = snap.data() as Map<String, dynamic>;
+
+    // ♦♦ Returning an "User Model":
     return User(
       email: snapshot['email'],
       profilePhoto: snapshot['profilePhoto'],

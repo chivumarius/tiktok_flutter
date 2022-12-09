@@ -91,9 +91,10 @@ class LoginScreen extends StatelessWidget {
               // ♦ The "Rectangular Area" of a "Material"
               //    → that "Responds" to "Touch:"
               child: InkWell(
-                onTap: () {
-                  debugPrint('navigating user');
-                },
+                onTap: () => authController.loginUser(
+                  _emailController.text,
+                  _passwordController.text,
+                ),
                 child: const Center(
                   child: Text(
                     'Login',

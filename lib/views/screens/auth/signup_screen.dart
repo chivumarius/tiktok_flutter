@@ -63,9 +63,7 @@ class SignupScreen extends StatelessWidget {
                   bottom: -10,
                   left: 80,
                   child: IconButton(
-                    onPressed: () {
-                      debugPrint('Pick an Image');
-                    },
+                    onPressed: () => authController.pickImage(),
                     icon: const Icon(
                       Icons.add_a_photo,
                     ),
@@ -142,9 +140,12 @@ class SignupScreen extends StatelessWidget {
               // ♦ The "Rectangular Area" of a "Material"
               //    → that "Responds" to "Touch:"
               child: InkWell(
-                onTap: () => {
-                  debugPrint('User Navigation to Registration!'),
-                },
+                onTap: () => authController.registerUser(
+                  _usernameController.text,
+                  _emailController.text,
+                  _passwordController.text,
+                  authController.profilePhoto,
+                ),
                 child: const Center(
                   child: Text(
                     'Register',
