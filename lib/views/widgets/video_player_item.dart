@@ -28,7 +28,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
         // ♦ Playing Video
         videoPlayerController.play();
 
-        // ♦ Set the Volune:
+        // ♦ Set the Volume:
         videoPlayerController.setVolume(1);
       });
   }
