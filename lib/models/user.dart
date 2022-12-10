@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// ♦ Uploading the User in Firebase
+//   → by Creating the "User" Model:
 class User {
   // ♦♦ Properties:
   String name;
@@ -8,11 +10,12 @@ class User {
   String uid;
 
   // ♦♦ Constructor:
-  User(
-      {required this.name,
-      required this.email,
-      required this.uid,
-      required this.profilePhoto,});
+  User({
+    required this.name,
+    required this.email,
+    required this.uid,
+    required this.profilePhoto,
+  });
 
   // ♦♦ The "toJson()" Method
   //     → for "Converting Data" to an "Object" ("Map"):
