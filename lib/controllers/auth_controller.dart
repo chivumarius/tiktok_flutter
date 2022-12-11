@@ -20,6 +20,7 @@ class AuthController extends GetxController {
   // ♦ Getter
   //   → for Accessing the "Private propery":
   File? get profilePhoto => _pickedImage.value;
+  User get user => _user.value!;
 
   // ♦♦ The "onReady()" Method:
   @override

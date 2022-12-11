@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tiktok_flutter/constants.dart';
 import 'package:tiktok_flutter/controllers/video_controller.dart';
 import 'package:tiktok_flutter/views/widgets/circle_animation.dart';
 import 'package:tiktok_flutter/views/widgets/video_player_item.dart';
@@ -185,11 +186,15 @@ class VideoScreen extends StatelessWidget {
                                     children: [
                                       // ♦ The "Like" - Icon:
                                       InkWell(
-                                        onTap: () {},
-                                        child: const Icon(
+                                        onTap: () =>
+                                            videoController.likeVideo(data.id),
+                                        child: Icon(
                                           Icons.favorite,
                                           size: 40,
-                                          color: Colors.white,
+                                          color: data.likes.contains(
+                                                  authController.user.uid)
+                                              ? Colors.red
+                                              : Colors.white,
                                         ),
                                       ),
 
