@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tiktok_flutter/controllers/video_controller.dart';
 import 'package:tiktok_flutter/views/widgets/circle_animation.dart';
 import 'package:tiktok_flutter/views/widgets/video_player_item.dart';
 
 class VideoScreen extends StatelessWidget {
-  const VideoScreen({Key? key}) : super(key: key);
+  // ♦ Constructor
+  VideoScreen({Key? key}) : super(key: key);
+
+  // ♦ Property:
+  final VideoController videoController = Get.put(VideoController());
 
   // ♦ The "buildProfile()" Method:
   buildProfile(String profilePhoto) {
@@ -71,190 +77,203 @@ class VideoScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: PageView.builder(
-        controller: PageController(initialPage: 0, viewportFraction: 1),
-        scrollDirection: Axis.vertical,
-        itemBuilder: (context, index) {
-          return Stack(
-            children: [
-              // ♦ The "Video URL":
-              const VideoPlayerItem(
-                videoUrl: 'Video URL',
-              ),
+      body: Obx(
+        () {
+          return PageView.builder(
+            // ♦ Video List
+            itemCount: videoController.videoList.length,
 
-              // ♦ The "Video Options Column"
-              //    → Placed on the "Right Side" of the "Screen":
-              Column(
+            controller: PageController(initialPage: 0, viewportFraction: 1),
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) {
+              // ♦ Variable:
+              final data = videoController.videoList[index];
+
+              // ♦
+              return Stack(
                 children: [
-                  // ♦ Spacing:
-                  const SizedBox(
-                    height: 100,
+                  // ♦ The "Video URL":
+                  VideoPlayerItem(
+                    videoUrl: data.videoUrl,
                   ),
 
-                  Expanded(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        // ♦ The "Bottom Left Area":
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                              left: 20,
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                // ♦ Username:
-                                const Text(
-                                  'User Name',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                  // ♦ The "Video Options Column"
+                  //    → Placed on the "Right Side" of the "Screen":
+                  Column(
+                    children: [
+                      // ♦ Spacing:
+                      const SizedBox(
+                        height: 100,
+                      ),
+
+                      Expanded(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            // ♦ The "Bottom Left Area":
+                            Expanded(
+                              child: Container(
+                                padding: const EdgeInsets.only(
+                                  left: 20,
                                 ),
-
-                                // ♦ Caption
-                                const Text(
-                                  'Caption',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                  ),
-                                ),
-
-                                Row(
-                                  children: const [
-                                    // ♦ "Music Note" - Icon:
-                                    Icon(
-                                      Icons.music_note,
-                                      size: 15,
-                                      color: Colors.white,
-                                    ),
-
-                                    // ♦ The "Song Name":
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    // ♦ Username:
                                     Text(
-                                      'Song Name',
-                                      style: TextStyle(
-                                        fontSize: 15,
+                                      data.username,
+                                      style: const TextStyle(
+                                        fontSize: 20,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
+
+                                    // ♦ Caption
+                                    Text(
+                                      data.caption,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+
+                                    Row(
+                                      children: [
+                                        // ♦ "Music Note" - Icon:
+                                        const Icon(
+                                          Icons.music_note,
+                                          size: 15,
+                                          color: Colors.white,
+                                        ),
+
+                                        // ♦ The "Song Name":
+                                        Text(
+                                          data.songName,
+                                          style: const TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   ],
-                                )
-                              ],
+                                ),
+                              ),
                             ),
-                          ),
+
+                            // ♦ The "Right Area" from the "Middle Down":
+                            Container(
+                              width: 100,
+                              margin: EdgeInsets.only(top: size.height / 5),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  // ♦ Getting the "Profile Photo":
+                                  buildProfile(
+                                    data.profilePhoto,
+                                  ),
+
+                                  // ♦ "Likes"
+                                  Column(
+                                    children: [
+                                      // ♦ The "Like" - Icon:
+                                      InkWell(
+                                        onTap: () {},
+                                        child: const Icon(
+                                          Icons.favorite,
+                                          size: 40,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+
+                                      // ♦ Spacing:
+                                      const SizedBox(height: 7),
+
+                                      // ♦ The "Number Likes":
+                                      Text(
+                                        data.likes.length.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+
+                                  // ♦ "Comments":
+                                  Column(
+                                    children: [
+                                      // ♦ The "Comment" - Icon:
+                                      InkWell(
+                                        onTap: () {},
+                                        child: const Icon(
+                                          Icons.comment,
+                                          size: 40,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+
+                                      // ♦ Spacing:
+                                      const SizedBox(height: 7),
+
+                                      // ♦ The "Number Comments":
+                                      Text(
+                                        data.commentCount.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+
+                                  // ♦ "Share":
+                                  Column(
+                                    children: [
+                                      // ♦ The "Share" - Icon:
+                                      InkWell(
+                                        onTap: () {},
+                                        child: const Icon(
+                                          Icons.reply,
+                                          size: 40,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+
+                                      // ♦ Spacing:
+                                      const SizedBox(height: 7),
+
+                                      // ♦ The "Number Share":
+                                      Text(
+                                        data.shareCount.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  CircleAnimation(
+                                    child: buildMusicAlbum(data.profilePhoto),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-
-                        // ♦ The "Right Area" from the "Middle Down":
-                        Container(
-                          width: 100,
-                          margin: EdgeInsets.only(top: size.height / 5),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              // ♦ Getting the "Profile Photo":
-                              buildProfile(
-                                'String URL',
-                              ),
-
-                              // ♦ "Likes"
-                              Column(
-                                children: [
-                                  // ♦ The "Like" - Icon:
-                                  InkWell(
-                                    onTap: () {},
-                                    child: const Icon(
-                                      Icons.favorite,
-                                      size: 40,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-
-                                  // ♦ Spacing:
-                                  const SizedBox(height: 7),
-
-                                  // ♦ The "Number Likes":
-                                  const Text(
-                                    '2.200',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                ],
-                              ),
-
-                              // ♦ "Comments":
-                              Column(
-                                children: [
-                                  // ♦ The "Comment" - Icon:
-                                  InkWell(
-                                    onTap: () {},
-                                    child: const Icon(
-                                      Icons.comment,
-                                      size: 40,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-
-                                  // ♦ Spacing:
-                                  const SizedBox(height: 7),
-
-                                  // ♦ The "Number Comments":
-                                  const Text(
-                                    '25',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                ],
-                              ),
-
-                              // ♦ "Share":
-                              Column(
-                                children: [
-                                  // ♦ The "Share" - Icon:
-                                  InkWell(
-                                    onTap: () {},
-                                    child: const Icon(
-                                      Icons.reply,
-                                      size: 40,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-
-                                  // ♦ Spacing:
-                                  const SizedBox(height: 7),
-
-                                  // ♦ The "Number Share":
-                                  const Text(
-                                    '2',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              CircleAnimation(
-                                child: buildMusicAlbum('Profile Photo'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ],
+              );
+            },
           );
         },
       ),

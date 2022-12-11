@@ -7,12 +7,12 @@ import 'package:tiktok_flutter/views/screens/add_video_screen.dart';
 import 'package:tiktok_flutter/views/screens/video_screen.dart';
 
 // ♦♦ PAGES
-List pages = const [
+List pages = [
   VideoScreen(),
-  Text('Search Screen'),
-  AddVideoScreen(),
-  Text('Messages Screen'),
-  Text('Profile Screen'),
+  const Text('Search Screen'),
+  const AddVideoScreen(),
+  const Text('Messages Screen'),
+  const Text('Profile Screen'),
 ];
 
 // ♦♦ COLORS
