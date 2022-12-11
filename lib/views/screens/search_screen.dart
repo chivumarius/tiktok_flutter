@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:tiktok_tutorial/controllers/search_controller.dart';
+import 'package:tiktok_flutter/controllers/search_controller.dart';
 import 'package:get/get.dart';
-import 'package:tiktok_tutorial/models/user.dart';
-import 'package:tiktok_tutorial/views/screens/profile_screen.dart';
+import 'package:tiktok_flutter/models/user.dart';
+import 'package:tiktok_flutter/views/screens/profile_screen.dart';
 
 class SearchScreen extends StatelessWidget {
+  // ♦ Constructor:
   SearchScreen({Key? key}) : super(key: key);
 
+  // ♦ Controller:
   final SearchController searchController = Get.put(SearchController());
 
+  // ♦ The "build()" Method:
   @override
   Widget build(BuildContext context) {
     return Obx(() {
