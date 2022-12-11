@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tiktok_tutorial/constants.dart';
-import 'package:tiktok_tutorial/controllers/comment_controller.dart';
+import 'package:tiktok_flutter/constants.dart';
+import 'package:tiktok_flutter/controllers/comment_controller.dart';
 import 'package:timeago/timeago.dart' as tago;
 
+//ignore: must_be_immutable
 class CommentScreen extends StatelessWidget {
+  // ♦ Property:
   final String id;
-  CommentScreen({
-    Key? key,
-    required this.id,
-  }) : super(key: key);
 
+  // ♦ Constructor:
+  CommentScreen({
+    super.key,
+    required this.id,
+  });
+
+  // ♦ Controllers
   final TextEditingController _commentController = TextEditingController();
   CommentController commentController = Get.put(CommentController());
 
+  // ♦ The "build()" Method:
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    // ♦ Updating Post ID:
     commentController.updatePostId(id);
 
     return Scaffold(
@@ -33,12 +41,14 @@ class CommentScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final comment = commentController.comments[index];
                         return ListTile(
+                          // ♦ "Circle Avatar":
                           leading: CircleAvatar(
                             backgroundColor: Colors.black,
                             backgroundImage: NetworkImage(comment.profilePhoto),
                           ),
                           title: Row(
                             children: [
+                              // ♦ "User Name":
                               Text(
                                 "${comment.username}  ",
                                 style: const TextStyle(
@@ -47,6 +57,8 @@ class CommentScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
+
+                              // ♦ "Comment":
                               Text(
                                 comment.comment,
                                 style: const TextStyle(
@@ -57,8 +69,10 @@ class CommentScreen extends StatelessWidget {
                               ),
                             ],
                           ),
+
                           subtitle: Row(
                             children: [
+                              // ♦ "Date":
                               Text(
                                 tago.format(
                                   comment.datePublished.toDate(),
@@ -68,9 +82,13 @@ class CommentScreen extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                               ),
+
+                              // ♦ Spacing:
                               const SizedBox(
                                 width: 10,
                               ),
+
+                              // ♦ The "Number of Likes" for the "Comment":
                               Text(
                                 '${comment.likes.length} likes',
                                 style: const TextStyle(
@@ -80,6 +98,8 @@ class CommentScreen extends StatelessWidget {
                               )
                             ],
                           ),
+
+                          // ♦ "Like":
                           trailing: InkWell(
                             onTap: () =>
                                 commentController.likeComment(comment.id),
@@ -98,6 +118,7 @@ class CommentScreen extends StatelessWidget {
               ),
               const Divider(),
               ListTile(
+                // ♦ "Text Form Field":
                 title: TextFormField(
                   controller: _commentController,
                   style: const TextStyle(
@@ -123,6 +144,8 @@ class CommentScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                // ♦ "Button":
                 trailing: TextButton(
                   onPressed: () =>
                       commentController.postComment(_commentController.text),

@@ -51,7 +51,7 @@ class Video {
   //     → which will Take a "DocumentSnapshot"
   //     → that it will "Convert" into a "Video Model":
   static Video fromSnap(DocumentSnapshot snap) {
-    // ♦ Getting "data()" and Marked "as Map<>":
+    // ♦ Getting "data()" and Marked as "Map<>" ("Object"):
     var snapshot = snap.data() as Map<String, dynamic>;
 
     // ♦♦ Returning an "Video Model":
