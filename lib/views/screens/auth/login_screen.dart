@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_flutter/constants.dart';
+import 'package:tiktok_flutter/views/screens/auth/signup_screen.dart';
 import 'package:tiktok_flutter/views/widgets/text_input_field.dart';
 
 // ♦♦ The "Stateless Widget":
@@ -126,9 +127,11 @@ class LoginScreen extends StatelessWidget {
                 // ♦ The "Rectangular Area" of a "Material"
                 //    → that "Responds" to "Touch:"
                 InkWell(
-                  onTap: () {
-                    debugPrint('User Navigation to Login!');
-                  },
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => SignupScreen(),
+                    ),
+                  ),
                   child: Text(
                     'Register',
                     style: TextStyle(fontSize: 20, color: buttonColor),

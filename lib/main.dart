@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:tiktok_flutter/constants.dart';
 import 'package:tiktok_flutter/controllers/auth_controller.dart';
 import 'package:tiktok_flutter/views/screens/auth/login_screen.dart';
-// import 'package:tiktok_flutter/views/screens/auth/signup_screen.dart';
 
 void main() async {
   // ♦ Initialize the Widget:
@@ -32,7 +31,6 @@ class MyApp extends StatelessWidget {
       theme:
           ThemeData.dark().copyWith(scaffoldBackgroundColor: backgroundColor),
       home: LoginScreen(),
-      // home: SignupScreen(),
     );
   }
 }
